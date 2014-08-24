@@ -23,6 +23,4 @@
          declared on the broker: -->
     <rabbit:admin connection-factory="connectionFactory"/>
 
-    <!-- Declare the "messages" queue: -->
-    <rabbit:queue name="messages" durable="true"/>
 </beans>
