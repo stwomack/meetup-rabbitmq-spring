@@ -1,10 +1,7 @@
 package com.rabbitmq.cftutorial.simple;
 
-import java.io.UnsupportedEncodingException;
-
 import javax.annotation.PostConstruct;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.BindingBuilder;
