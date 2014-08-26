@@ -1,10 +1,7 @@
 package com.rabbitmq.cftutorial.simple;
 
-import java.io.UnsupportedEncodingException;
-
 import javax.annotation.PostConstruct;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.BindingBuilder;
@@ -26,6 +23,9 @@ public class SampleAmqpSimpleApplication {
 	private ConnectionFactory connectionFactory;
 
 	@Autowired
+	private RedisDao redisDao;
+	
+	@Autowired
 	private AmqpAdmin amqpAdmin;
 
 	@PostConstruct
@@ -42,11 +42,12 @@ public class SampleAmqpSimpleApplication {
 				this.connectionFactory);
 		Object listener = new Object() {
 			@SuppressWarnings("unused")
-			public void handleMessage(Object foo) throws JSONException, UnsupportedEncodingException {
+			public void handleMessage(Object foo) throws Exception {
 				byte[] boo = (byte[]) foo;
 				String str1 = new String(boo, "UTF-8");
 				JSONObject jsonObject = new JSONObject(str1);
-				System.out.println(jsonObject);
+				System.out.println("Got rabbig message: " + jsonObject);
+				redisDao.saveToRedis("", jsonObject.toString());
 			}
 		};
 		MessageListenerAdapter adapter = new MessageListenerAdapter(listener);
