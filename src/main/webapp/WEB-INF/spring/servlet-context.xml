@@ -13,16 +13,10 @@
 	<context:component-scan base-package="com.rabbitmq.cftutorial.simple" />
 	<mvc:annotation-driven />
 
-	<!-- Obtain a connection to the RabbitMQ via cloudfoundry-runtime: -->
 	<cloud:rabbit-connection-factory id="rabbitConnectionFactory" />
-
-	<!-- Request that queues, exchanges and bindings be automatically declared 
-		on the broker: -->
 	<rabbit:admin connection-factory="rabbitConnectionFactory" />
 
 	<cloud:redis-connection-factory id="redisConnectionFactory" />
-
-	<!-- redis template definition -->
 	<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"
 		p:connection-factory-ref="redisConnectionFactory" />
 </beans>
